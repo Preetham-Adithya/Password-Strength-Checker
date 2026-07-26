@@ -51,17 +51,6 @@ The final entropy score is mapped to a Weak / Fair / Good / Strong tier and used
 
 > **Note:** The built-in "common password" list is a small illustrative sample, not an exhaustive breach corpus. For production use, consider checking against a real breach database such as the [Have I Been Pwned Pwned Passwords API](https://haveibeenpwned.com/API/v3#PwnedPasswords) (via k-anonymity, so the full password is never transmitted).
 
-## Usage
-
-Just clone the repo and open `index.html`:
-
-```bash
-git clone https://github.com/<your-username>/password-strength-checker.git
-cd password-strength-checker
-open index.html   # or double-click the file
-```
-
-No dependencies to install.
 
 ## License
 
