@@ -38,7 +38,6 @@ body {
   max-width: 520px;
 }
 
-/* header */
 .vault__header { margin-bottom: 28px; }
 
 .vault__eyebrow {
@@ -67,7 +66,6 @@ body {
   max-width: 42ch;
 }
 
-/* panel */
 .panel {
   background: var(--panel);
   border: 1px solid var(--panel-line);
@@ -75,7 +73,6 @@ body {
   padding: 28px;
 }
 
-/* field */
 .field__label {
   display: block;
   font-family: var(--mono);
@@ -130,7 +127,6 @@ body {
 
 .field__toggle:hover { color: var(--paper); }
 
-/* cylinder strength meter — the signature element */
 .cylinder {
   display: flex;
   gap: 5px;
@@ -162,7 +158,6 @@ body {
 .cylinder__pin.c-good::after   { background: var(--good); }
 .cylinder__pin.c-strong::after { background: var(--strong); }
 
-/* verdict */
 .verdict {
   display: flex;
   align-items: baseline;
@@ -191,7 +186,6 @@ body {
   color: var(--fog);
 }
 
-/* checklist */
 .checklist {
   list-style: none;
   margin: 0 0 18px;
