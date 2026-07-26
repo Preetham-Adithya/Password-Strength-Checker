@@ -9,9 +9,6 @@
   const note      = document.getElementById('note');
   const items     = [...document.querySelectorAll('.checklist__item')];
 
-  // A small sample of extremely common / leaked passwords for a quick sanity check.
-  // This is illustrative, not exhaustive — real deployments should check against
-  // a proper breach-corpus (e.g. Have I Been Pwned's k-anonymity API) server-side.
   const COMMON = new Set([
     'password','123456','12345678','123456789','qwerty','abc123','password1',
     'admin','letmein','welcome','monkey','iloveyou','111111','123123',
@@ -31,7 +28,7 @@
         if (s.includes(fwd) || s.includes(rev)) return true;
       }
     }
-    return /(.)\1{2,}/.test(pw); // aaa, 111, etc.
+    return /(.)\1{2,}/.test(pw); 
   }
 
   function charsetSize(pw) {
@@ -52,7 +49,6 @@
     if (!bits) return 'Enter a password to begin';
     if (penalised) return 'Instantly — it\'s a known leaked password';
 
-    // Assume a determined offline attacker at ~10^10 guesses/sec.
     const guesses = Math.pow(2, bits) / 2;
     const seconds = guesses / 1e10;
 
@@ -83,10 +79,10 @@
 
     const isCommon = COMMON.has(pw.toLowerCase());
     let bits = entropyBits(pw);
-    if (isCommon) bits = Math.min(bits, 10); // heavily penalise known-leaked passwords
-    else if (!rules.repeat) bits *= 0.6;      // penalise sequences/repeats
+    if (isCommon) bits = Math.min(bits, 10); 
+    else if (!rules.repeat) bits *= 0.6;      
 
-    let tier;      // 0-4
+    let tier;     
     let label;
     if (!pw) { tier = -1; label = '—'; }
     else if (isCommon || bits < 28) { tier = 1; label = 'Weak'; }
@@ -109,7 +105,7 @@
       item.querySelector('.checklist__mark').textContent = (pw.length > 0 && pass) ? '●' : '○';
     });
 
-    // cylinder pins (0-4 lit depending on tier)
+    
     const tierClass = { 1: 'c-weak', 2: 'c-fair', 3: 'c-good', 4: 'c-strong' }[tier];
     pins.forEach((pin, i) => {
       pin.classList.remove('set', 'c-weak', 'c-fair', 'c-good', 'c-strong');
@@ -118,12 +114,12 @@
       }
     });
 
-    // verdict
+    
     verdictLabel.textContent = pw ? label : '—';
     verdictLabel.className = 'verdict__label' + (tierClass ? ` ${tierClass}` : '');
     verdictTime.textContent = crackTimeLabel(bits, isCommon);
 
-    // note
+    
     if (!pw) {
       note.textContent = '';
     } else if (isCommon) {
