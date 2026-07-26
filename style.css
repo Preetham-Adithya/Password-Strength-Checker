@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --ink:        #0e1015;
+  --panel:      #15181f;
+  --panel-line: #262b36;
+  --fog:        #6d7488;
+  --paper:      #e7e9ee;
+
+  --weak:    #e6553f;
+  --fair:    #e0a13a;
+  --good:    #4fb8d6;
+  --strong:  #35c98c;
+
+  --radius: 3px;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(79,184,214,0.06), transparent 45%),
+    var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+}
+
+.vault {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* header */
+.vault__header { margin-bottom: 28px; }
+
+.vault__eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--fog);
+  margin-bottom: 14px;
+}
+
+.vault__title {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: clamp(26px, 5vw, 34px);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+}
+
+.vault__sub {
+  margin: 0;
+  color: var(--fog);
+  font-size: 14.5px;
+  line-height: 1.5;
+  max-width: 42ch;
+}
+
+/* panel */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+/* field */
+.field__label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--fog);
+  margin-bottom: 8px;
+}
+
+.field__row {
+  display: flex;
+  border: 1px solid var(--panel-line);
+  border-radius: var(--radius);
+  background: var(--ink);
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.field__row:focus-within {
+  border-color: var(--good);
+}
+
+.field__input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 16px;
+  padding: 13px 14px;
+  letter-spacing: 0.02em;
+}
+
+.field__input::placeholder {
+  color: #454b5a;
+  font-family: var(--sans);
+  letter-spacing: normal;
+}
+
+.field__toggle {
+  border: none;
+  background: transparent;
+  color: var(--fog);
+  padding: 0 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s ease;
+}
+
+.field__toggle:hover { color: var(--paper); }
+
+/* cylinder strength meter — the signature element */
+.cylinder {
+  display: flex;
+  gap: 5px;
+  margin: 22px 0 16px;
+  height: 34px;
+}
+
+.cylinder__pin {
+  flex: 1;
+  background: var(--panel-line);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s ease;
+}
+
+.cylinder__pin::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 0%;
+  background: var(--fog);
+  transition: height 0.35s cubic-bezier(.4,0,.2,1), background 0.25s ease;
+}
+
+.cylinder__pin.set::after { height: 100%; }
+.cylinder__pin.c-weak::after   { background: var(--weak); }
+.cylinder__pin.c-fair::after   { background: var(--fair); }
+.cylinder__pin.c-good::after   { background: var(--good); }
+.cylinder__pin.c-strong::after { background: var(--strong); }
+
+/* verdict */
+.verdict {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-bottom: 22px;
+}
+
+.verdict__label {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  color: var(--paper);
+}
+
+.verdict__label.c-weak   { color: var(--weak); }
+.verdict__label.c-fair   { color: var(--fair); }
+.verdict__label.c-good   { color: var(--good); }
+.verdict__label.c-strong { color: var(--strong); }
+
+.verdict__time {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--fog);
+}
+
+/* checklist */
+.checklist {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--panel-line);
+  display: grid;
+  gap: 9px;
+}
+
+.checklist__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--fog);
+  transition: color 0.2s ease;
+}
+
+.checklist__item.pass { color: var(--paper); }
+
+.checklist__mark {
+  font-family: var(--mono);
+  width: 14px;
+  flex-shrink: 0;
+  color: var(--panel-line);
+  transition: color 0.2s ease;
+}
+
+.checklist__item.pass .checklist__mark { color: var(--strong); }
+.checklist__item.fail-flag .checklist__mark { color: var(--weak); }
+
+.note {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--fog);
+  min-height: 16px;
+  font-family: var(--mono);
+}
+
+.vault__footer {
+  margin-top: 22px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: #3d4250;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cylinder__pin::after,
+  .checklist__item,
+  .checklist__mark,
+  .field__row {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel { padding: 20px; }
+}
